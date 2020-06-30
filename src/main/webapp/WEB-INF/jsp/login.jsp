@@ -41,8 +41,8 @@
                 </table>
             </div>
             <div class="popup_form">
-                <form:form method='post' action="params" name='params' autocomplete='off'>
-<%--                <form:form method='post' action="params" name='params' autocomplete='off' modelAttribute="login">--%>
+                <form:form method="post" action="params" name="params" autocomplete="off">
+<%--                <form:form method="post" action="params" name="params" autocomplete="off" modelAttribute="webParams">--%>
 <%--                <form th:action="@{/login}" method="post">--%>
 					<table width="100%">
 						<tbody>
@@ -51,7 +51,8 @@
 								    <label><span id="username_ru" class="label-ru">ИМЯ ПОЛЬЗОВАТЕЛЯ</span></label>
                                 </td>
 								<td style="text-align:right;">
-								    <input id="field-username" name="userName" type="text" value="${webUser.getUserName()}">
+<%--								    <input id="field-username" name="userName" type="text" value="${webUser.getUserName()}">--%>
+								    <input id="field-username" name="userName" type="text" value="">
                                 </td>
 							</tr>
 							<tr>

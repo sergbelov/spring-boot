@@ -1,6 +1,6 @@
 <div id="page">
     <header id=header" role="banner">
-        <form:form method='post' action="logout" name='logout' autocomplete='on' modelAttribute="login">
+        <form:form method="post" action="logout" name="logout" autocomplete="on">
             <table width="100%" style="background: #d0ffd0; color: #006600; border-radius: 10px;">
                 <tbody>
                 <tr>

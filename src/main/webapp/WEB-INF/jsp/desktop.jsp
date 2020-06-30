@@ -28,33 +28,7 @@
 </c:choose>
     </head>
     <body>
-        <div id="page">
-            <header id=header" role="banner">
-                <form:form method='post' action="login.jsp" name='logout' autocomplete='on' modelAttribute="login">
-                    <table width="100%" style="background: #d0ffd0; color: #006600; border-radius: 10px;">
-                        <tbody>
-                            <tr>
-                                <td width="40px" style="text-align:left;">
-                                    <img src="${logo}" alt="" class="popup_logo" height="40px"/>
-                                </td>
-                                <td id="user-options" style="text-align:center; font-size:25px">
-                                    ${questions.getTheme()}
-                                </td>
-                                <td id="user-options" style="text-align:right;">
-                                    ${webUser.getUserName()} (${webUser.getFullUserName()})
-                                </td>
-                                <td width="30px" style="text-align:right;">
-                                    <button style="border: none; padding: 0; background: none;">
-                                        <input type="image" src="${exit}" alt="" class="popup_logo" height="30px"/>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form:form>
-            </header>
-        </div>
-        </br>
+<%@ include file="header.jsp" %>
         <div>
             ${result}
         </div>
@@ -63,7 +37,7 @@
     <c:when test="${webUser.isDefinedUser()}">
 <c:choose>
     <c:when test="${questions.isStarted()}">
-        <form:form method='post' action="result.jsp" name='result' autocomplete='on' modelAttribute="login">
+        <form:form method="post" action="result.jsp" name="result" autocomplete="on">
         <% int qq = 0; %>
         <c:forEach items="${questions.getQuestionsList()}" var="itemQuestion">
                 <div>
@@ -93,7 +67,7 @@
         </form:form>
     </c:when>
     <c:otherwise>
-        <form:form method='post' action="params.jsp" name='params' autocomplete='off' modelAttribute="login">
+        <form:form method='post' action="params.jsp" name='params' autocomplete='off' modelAttribute="webParams">
             <c:if test="${questions.isShowAnswers()}">
             <% int qq = 0; %>
             <c:forEach items="${questions.getQuestionsList()}" var="itemQuestion">

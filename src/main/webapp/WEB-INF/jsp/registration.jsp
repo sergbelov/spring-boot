@@ -37,7 +37,7 @@
                 </table>
             </div>
             <div class="popup_form2">
-                <form:form method='post' action="params.jsp" name='params' autocomplete='off' modelAttribute="login">
+                <form:form method="post" action="params.jsp" name="params" autocomplete="off" modelAttribute="webParams">
 					<table width="100%">
 						<tbody>
 							<tr>

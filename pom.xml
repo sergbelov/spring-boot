@@ -20,6 +20,7 @@
         <hsqldb.version>2.4.0</hsqldb.version>
         <ojdbc6.version>11.2.0.3</ojdbc6.version>
         <mssql-jdbc.version>6.2.0.jre8</mssql-jdbc.version>
+        <hikari.version>3.4.5</hikari.version>
     </properties>
 
 <!--
@@ -196,7 +197,8 @@
             <version>${mssql-jdbc.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+
+        <!-- https://mvnrepository.com/artifact/com.mchange/c3p0  com.mchange.v2.c3p0.ComboPooledDataSource -->
 <!--
         <dependency>
             <groupId>com.mchange</groupId>
@@ -204,6 +206,13 @@
             <version>0.9.5.5</version>
         </dependency>
 -->
+
+        <!-- HikariCP Connection Pooling-->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${hikari.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

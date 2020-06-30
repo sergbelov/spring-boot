@@ -8,6 +8,10 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+//import org.springframework.ui.Model;
+//import org.springframework.ui.ModelMap;
+//import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,10 +28,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
+@ControllerAdvice
 @Scope("session")
 //@CacheEvict(value = {"login", "params"}, allEntries = true)
 //@SessionAttributes(value = "login")
-//@SessionAttributes(types = CheckingSkillsWeb.class)
+//@SessionAttributes(types = WebController.class)
 public class WebController {
 
     // внедряем значение из application.properties
@@ -54,58 +59,20 @@ public class WebController {
         }
     }
 
-    @RequestMapping(value = {"/", "/login", "/logout"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/login", "/logout", "/params", "/desktop", "/result"}, method = RequestMethod.GET)
     private ModelAndView showLoginGet() {
-        return createModel("login", new WebParams());
+        return createModel("login");
     }
+
     @RequestMapping(value = {"/", "/login", "/logout"}, method = RequestMethod.POST)
     private ModelAndView showLoginPost() {
-        return createModel("login", new WebParams());
+        return createModel("login");
     }
 
-/*
-    @RequestMapping(value = {"/", "/login", "/logout"})
-    private ModelAndView showLogin(HttpServletRequest request,
-                                   HttpServletResponse response) throws MessagingException {
-
-        if (webUser.isDefinedUser()) {
-            LOG.info("Выход пользователя {} ({})", webUser.getUserName(), webUser.getFullUserName());
-            webUser.clear();
-        }
-
-//        return createModel("login", new WebParamsObject());
-        return createModel("login", webParams);
-    }
-*/
-
-
-    @RequestMapping(value = "/params", method = RequestMethod.GET)
-    private ModelAndView createParamsGet(@ModelAttribute("login") WebParams webParams,
-                                      HttpServletRequest request,
-                                      HttpServletResponse response) throws MessagingException {
-        ModelAndView mav;
-        isOk = true;
-        String errorMessage = "";
-        if (webParams.getUserName() != null && !webParams.getUserName().isEmpty()) {
-            webUser.setUserName(webParams.getUserName());
-            webUser.setPassword(webParams.getPassword());
-            if (webParams.getFullUserName() != null && !webParams.getFullUserName().isEmpty()) {
-                webUser.setFullUserName((webParams.getFullUserName()));
-            }
-        } else {
-            webUser.clear();
-        }
-
-        mav = createModel("params",
-                ImmutableMap.<String, Object>builder()
-                        .put("themesList", themesList)
-                        .build());
-        return mav;
-    }
     @RequestMapping(value = "/params", method = RequestMethod.POST)
-    private ModelAndView createParamsPost(@ModelAttribute("login") WebParams webParams,
-                                      HttpServletRequest request,
-                                      HttpServletResponse response) throws MessagingException {
+    private ModelAndView createParamsPost(@ModelAttribute("webParams") WebParams webParams,
+                                          HttpServletRequest request,
+                                          HttpServletResponse response) throws MessagingException {
         ModelAndView mav;
         isOk = true;
         String errorMessage = "";
@@ -126,13 +93,12 @@ public class WebController {
         return mav;
     }
 
-    @RequestMapping(value = "/desktop", method = RequestMethod.GET)
-    private ModelAndView createDesktop(@ModelAttribute("params") WebParams webParams,
+    @RequestMapping(value = "/desktop", method = RequestMethod.POST)
+    private ModelAndView createDesktop(@ModelAttribute("webParams") WebParams webParams,
                                        HttpServletRequest request,
                                        HttpServletResponse response) throws MessagingException {
         ModelAndView mav = null;
         String errorMessage = "";
-
 /*
         if (!userAuthorizationService.isSessionCorrect()){
             errorMessage = "Сессия просрочена";
@@ -161,10 +127,12 @@ public class WebController {
     }
 
     @RequestMapping(value = "/result", method = RequestMethod.POST)
-//    private ModelAndView createResult(@ModelAttribute("desktop") WebParams webParams,
-    private ModelAndView createResult(@ModelAttribute("params") WebParams webParams,
+    private ModelAndView createResult(@ModelAttribute("webParams") WebParams webParams,
                                       HttpServletRequest request,
                                       HttpServletResponse response) throws MessagingException {
+
+//        LOG.info("{} {}", webUser.getUserName(), webParams.getTheme());
+        this.webParams.setTheme(webParams.getTheme());
 
         ModelAndView mav;
         String errorMessage = "";
@@ -176,17 +144,21 @@ public class WebController {
         }
 */
 
-
 //        mav = createModel("desktop", ImmutableMap.<String, Object>builder()
-        mav = createModel("result", ImmutableMap.<String, Object>builder()
-                .put("result", "Ну что, нормальный реультат.")
+        mav = createModel("result",
+                ImmutableMap.<String, Object>builder()
+                        .put("result", "Ну что, нормальный реультат.")
 //                .put("questions", null)//questions)
-                .build());
+                        .build());
 
         return mav;
     }
 
 
+
+    private ModelAndView createModel(String viewName) {
+        return createModel(viewName, webParams, Optional.empty());
+    }
 
     private ModelAndView createModel(String viewName, WebParams webParams) {
         return createModel(viewName, webParams, Optional.empty());
@@ -205,7 +177,6 @@ public class WebController {
 
     private ModelAndView createModel(String viewName, Map<String, Object> attribute) {
         return createModel(viewName, attribute, null);
-
     }
 
     private ModelAndView createModel(String viewName,
@@ -217,10 +188,18 @@ public class WebController {
         mav.addObject("PROJECT_NAME", PROJECT_NAME);
         mav.addObject("PROJECT_VERSION", PROJECT_VERSION);
         mav.addObject("webUser", webUser);
+        mav.addObject("webParams", webParams);
         if (errorMessage != null && errorMessage.isPresent()) {
             mav.addObject("errorMessage", errorMessage.get());
         }
         return mav;
     }
 
+/*
+    @ModelAttribute
+    public void addAttributes(Model model) {
+        model.addAttribute("PROJECT_NAME", PROJECT_NAME);
+        model.addAttribute("PROJECT_VERSION", PROJECT_VERSION);
+    }
+*/
 }

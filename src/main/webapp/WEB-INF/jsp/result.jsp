@@ -22,6 +22,7 @@
     <body>
 <%@ include file="header.jsp" %>
         <p>Тестирование завершено</p>
+        ${webParams.getTheme()}<br>
         ${result}
     </body>
 </html>

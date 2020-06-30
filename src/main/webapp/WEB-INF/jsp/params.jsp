@@ -45,9 +45,8 @@
                 </table>
             </div>
             <div class="popup_form_params">
-<%--                <form:form method='get' action="desktop" name='desktop' autocomplete='on' modelAttribute="login">--%>
-<%--                <form:form method='get' action="desktop" name='desktop' autocomplete='on'>--%>
-                <form:form method='post' action="result" name='result' autocomplete='on' modelAttribute="login">
+<%--                <form:form method="get" action="desktop" name="desktop" autocomplete="on" modelAttribute="webParams">--%>
+                <form:form method="post" action="result" name="result" autocomplete="on">
                     <p>
                         <label for="theme" id="label-theme" >
                             <span id="theme_ru" class="label-ru">ТЕМА ТЕСТИРОВАНИЯ</span>
