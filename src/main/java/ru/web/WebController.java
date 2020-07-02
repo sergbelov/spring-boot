@@ -1,10 +1,9 @@
 package ru.web;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
 import javax.mail.MessagingException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -35,6 +34,8 @@ import javax.servlet.http.HttpServletResponse;
 //@SessionAttributes(types = WebController.class)
 public class WebController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(WebController.class);
+
     // внедряем значение из application.properties
     @Value("${project.name:test}")
     private String PROJECT_NAME;
@@ -43,8 +44,6 @@ public class WebController {
     private String PROJECT_VERSION;
 
     private final String FILE_PROPERTIES = "spring-boot.properties";
-
-    private static final Logger LOG = LogManager.getLogger();
 
     private WebUser webUser = new WebUser();
     private WebParams webParams = new WebParams();

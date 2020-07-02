@@ -14,12 +14,14 @@
 <!--        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <log4j.version>2.13.2</log4j.version>
         <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
         <spring.version>5.1.4.RELEASE</spring.version>
         <log4j.version>2.8.2</log4j.version>
         <hsqldb.version>2.4.0</hsqldb.version>
         <ojdbc6.version>11.2.0.3</ojdbc6.version>
         <mssql-jdbc.version>6.2.0.jre8</mssql-jdbc.version>
+        <c3p0.version>0.9.5.5</c3p0.version>
         <hikari.version>3.4.5</hikari.version>
     </properties>
 
@@ -45,9 +47,20 @@
 
     <dependencies>
 
+        <!-- Logger log4j slf4j-->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
             <version>${log4j.version}</version>
         </dependency>
 
@@ -203,7 +216,7 @@
         <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
-            <version>0.9.5.5</version>
+            <version>${c3p0.version}</version>
         </dependency>
 -->
 
@@ -213,6 +226,7 @@
             <artifactId>HikariCP</artifactId>
             <version>${hikari.version}</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
